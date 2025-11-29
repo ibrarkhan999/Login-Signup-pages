@@ -1,0 +1,205 @@
+import { useNavigation } from '@react-navigation/native';
+import React, { useState } from 'react';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  KeyboardAvoidingView,
+  Platform
+} from 'react-native';
+import Svg, { Path } from 'react-native-svg';
+
+const Register = () => {
+  const navigation = useNavigation()
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const FlashIcon = () => (
+    <Svg width={80} height={80} viewBox="0 0 100 100">
+      <Path
+        d="M55 10 L25 50 L45 50 L35 90 L70 45 L50 45 L65 10 Z"
+        fill="white"
+      />
+    </Svg>
+  );
+
+  return (
+    <View style={styles.container}>
+      <KeyboardAvoidingView 
+        style={styles.keyboardAvoid}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      >
+        <View style={styles.content}>
+          
+          {/* Logo */}
+          <View style={styles.logoContainer}>
+            <FlashIcon />
+          </View>
+
+          <Text style={styles.title}>Create Account</Text>
+
+          {/* Form */}
+          <View style={styles.form}>
+            {/* Email Input */}
+            <TextInput
+              style={styles.input}
+              placeholder="Name"
+              placeholderTextColor="rgba(255,255,255,0.6)"
+            />
+
+
+            {/* Email Input */}
+            <TextInput
+              style={styles.input}
+              placeholder="Email"
+              placeholderTextColor="rgba(255,255,255,0.6)"
+              value={email}
+              onChangeText={setEmail}
+              keyboardType="email-address"
+              autoCapitalize="none"
+            />
+
+            {/* Password Input */}
+            <View style={styles.passwordContainer}>
+              <TextInput
+                style={styles.input}
+                placeholder="Password"
+                placeholderTextColor="rgba(255,255,255,0.6)"
+                value={password}
+                onChangeText={setPassword}
+                secureTextEntry={!showPassword}
+                autoCapitalize="none"
+              />
+              <TouchableOpacity
+                style={styles.eyeButton}
+                onPress={() => setShowPassword(!showPassword)}
+              >
+                <Text style={styles.eyeText}>
+                  {showPassword ? '👁️' : '👁️‍🗨️'}
+                </Text>
+              </TouchableOpacity>
+            </View>
+
+            {/* Confirm Password Input */}
+            <View style={styles.passwordContainer}>
+              <TextInput
+                style={styles.input}
+                placeholder="Confirm Password"
+                placeholderTextColor="rgba(255,255,255,0.6)"
+                value={confirmPassword}
+                onChangeText={setConfirmPassword}
+                secureTextEntry={!showConfirmPassword}
+                autoCapitalize="none"
+              />
+              <TouchableOpacity
+                style={styles.eyeButton}
+                onPress={() => setShowConfirmPassword(!showConfirmPassword)}
+              >
+                <Text style={styles.eyeText}>
+                  {showConfirmPassword ? '👁️' : '👁️‍🗨️'}
+                </Text>
+              </TouchableOpacity>
+            </View>
+
+            {/* Register Button */}
+            <TouchableOpacity style={styles.registerButton}>
+              <Text style={styles.registerButtonText}>Create Account</Text>
+            </TouchableOpacity>
+
+            {/* Login Link */}
+            <View style={styles.loginContainer}>
+              <Text style={styles.loginText}>Already have an account? </Text>
+              <TouchableOpacity onPress={()=> navigation.navigate("Login")}>
+                <Text style={styles.loginLink}>Sign In</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </KeyboardAvoidingView>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#667eea',
+  },
+  keyboardAvoid: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  content: {
+    paddingHorizontal: 30,
+    alignItems: 'center',
+  },
+  logoContainer: {
+    marginBottom: 30,
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: 'white',
+    marginBottom: 40,
+    textAlign: 'center',
+  },
+  form: {
+    width: '100%',
+    gap: 20,
+  },
+  input: {
+
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+    color: 'white',
+    fontSize: 16,
+  borderBottomWidth: 1,              
+  borderBottomColor: 'rgba(78, 42, 126, 1)' 
+  },
+  passwordContainer: {
+    position: 'relative',
+  },
+  eyeButton: {
+    position: 'absolute',
+    right: 16,
+    top: 14,
+  },
+  eyeText: {
+    fontSize: 18,
+    color: 'white',
+  },
+  registerButton: {
+    borderRadius: 10,
+    paddingVertical: 16,
+    alignItems: 'center',
+    marginTop: 10,
+    borderWidth: 1,
+  borderBottomColor: 'rgba(78, 42, 126, 1)' 
+  },
+  registerButtonText: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  loginContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 20,
+  },
+  loginText: {
+    color: 'rgba(255,255,255,0.8)',
+    fontSize: 14,
+  },
+  loginLink: {
+    color: 'white',
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
+});
+
+export default Register;
