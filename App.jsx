@@ -1,28 +1,24 @@
-import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
-import React, { useState, useEffect } from 'react';
-import Login from './src/screen/Login'; // your existing login screen
+// App.js
+import React, { useEffect, useState } from 'react';
 import FlashLoadingScreen from './src/screen/Flash';
-import MainNav from './src/navigations/MianNav';
+
 import Toast from 'react-native-toast-message';
+import MainNav from './src/navigations/MianNav';
+
 export default function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 2000); // 2-second splash
+    const timer = setTimeout(() => setLoading(false), 2000);
     return () => clearTimeout(timer);
   }, []);
 
-  if (loading) return <FlashLoadingScreen/>
+  if (loading) return <FlashLoadingScreen />;
 
   return (
     <>
-    <MainNav />
+      <MainNav />
       <Toast />
     </>
-  )
+  );
 }
-
-const styles = StyleSheet.create({
-
-
-});

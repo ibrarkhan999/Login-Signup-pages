@@ -75,3 +75,5 @@ android/app/debug-new.keystore
 !.yarn/sdks
 !.yarn/versions
 android/app/google-services.json
+# Secrets
+.env

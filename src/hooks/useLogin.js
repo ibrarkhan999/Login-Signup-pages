@@ -1,27 +1,29 @@
+// src/hooks/useLogin.js
 import { useState } from "react";
-import { Alert } from "react-native";
-
+import Toast from "react-native-toast-message";
+import { LoginUser } from "../firebase/service";
+import { useNavigation } from "@react-navigation/native";
 
 export default function useLogin() {
-  const [user, setUser] = useState({
-    email : "",
-    password : ''
-  });
-
+  const navigation = useNavigation();
+  const [user, setUser] = useState({ email: "", password: "" });
 
   const handleInput = (name, value) => {
-    setUser(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    setUser(prev => ({ ...prev, [name]: value }));
   };
 
+  const handleLogin = async () => {
+    const { email, password } = user;
 
-  const handleLogin = () => {
-    Alert.alert(user.email)
-console.log(user)
-  }
+    if (!email || !password) {
+      Toast.show({ type: "error", text1: "Fill all fields" });
+      return;
+    }
 
-  return {handleInput,handleLogin,user, setUser}
+    const log = await LoginUser(email, password);
+    console.log(log);
+    navigation.navigate("Home");
+  };
+
+  return { handleInput, handleLogin, user, setUser };
 }
-
