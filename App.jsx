@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Login from './src/screen/Login'; // your existing login screen
 import FlashLoadingScreen from './src/screen/Flash';
 import MainNav from './src/navigations/MianNav';
-
+import Toast from 'react-native-toast-message';
 export default function App() {
   const [loading, setLoading] = useState(true);
 
@@ -14,7 +14,12 @@ export default function App() {
 
   if (loading) return <FlashLoadingScreen/>
 
-  return <MainNav />;
+  return (
+    <>
+    <MainNav />
+      <Toast />
+    </>
+  )
 }
 
 const styles = StyleSheet.create({

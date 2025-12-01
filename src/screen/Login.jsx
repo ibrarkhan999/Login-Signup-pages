@@ -10,12 +10,16 @@ import {
   Platform
 } from 'react-native';
 import Svg, { Path } from 'react-native-svg'
+import useLogin from '../hooks/useLogin';
 
 const Login = () => {
   const navigation = useNavigation()
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+
+
+  const {user, setUser, handleLogin , handleInput} = useLogin()
+
+
 
   const FlashIcon = () => (
     <Svg width={80} height={80} viewBox="0 0 100 100">
@@ -48,8 +52,8 @@ const Login = () => {
               style={styles.input}
               placeholder="Email"
               placeholderTextColor="rgba(255,255,255,0.6)"
-              value={email}
-              onChangeText={setEmail}
+              value={user.email}
+              onChangeText={(text) => handleInput("email", text)}
               keyboardType="email-address"
               autoCapitalize="none"
             />
@@ -60,8 +64,8 @@ const Login = () => {
                 style={styles.input}
                 placeholder="Password"
                 placeholderTextColor="rgba(255,255,255,0.6)"
-                value={password}
-                onChangeText={setPassword}
+                value={user.password}
+                onChangeText={(text) => handleInput("password", text)}
                 secureTextEntry={!showPassword}
                 autoCapitalize="none"
               />
@@ -76,7 +80,7 @@ const Login = () => {
             </View>
 
             {/* Login Button */}
-            <TouchableOpacity style={styles.loginButton}>
+            <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
               <Text style={styles.loginButtonText}>Sign In</Text>
             </TouchableOpacity>
 

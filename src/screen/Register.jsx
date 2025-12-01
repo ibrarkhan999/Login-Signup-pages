@@ -10,14 +10,14 @@ import {
   Platform
 } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
+import useRegister from '../hooks/useRegister';
 
 const Register = () => {
   const navigation = useNavigation()
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const {user, setUser, handleInput,handleRegister} = useRegister()
 
   const FlashIcon = () => (
     <Svg width={80} height={80} viewBox="0 0 100 100">
@@ -49,6 +49,8 @@ const Register = () => {
             <TextInput
               style={styles.input}
               placeholder="Name"
+              value={user.name}
+              onChangeText={(text) => handleInput("name", text)}
               placeholderTextColor="rgba(255,255,255,0.6)"
             />
 
@@ -58,8 +60,8 @@ const Register = () => {
               style={styles.input}
               placeholder="Email"
               placeholderTextColor="rgba(255,255,255,0.6)"
-              value={email}
-              onChangeText={setEmail}
+              value={user.email}
+              onChangeText={(text) => handleInput("email", text)}
               keyboardType="email-address"
               autoCapitalize="none"
             />
@@ -70,8 +72,8 @@ const Register = () => {
                 style={styles.input}
                 placeholder="Password"
                 placeholderTextColor="rgba(255,255,255,0.6)"
-                value={password}
-                onChangeText={setPassword}
+                value={user.password}
+                onChangeText={(text) => handleInput("password", text)}
                 secureTextEntry={!showPassword}
                 autoCapitalize="none"
               />
@@ -91,8 +93,8 @@ const Register = () => {
                 style={styles.input}
                 placeholder="Confirm Password"
                 placeholderTextColor="rgba(255,255,255,0.6)"
-                value={confirmPassword}
-                onChangeText={setConfirmPassword}
+                value={user.confirmPassword}
+                onChangeText={(text) => handleInput("confirmPassword", text)}
                 secureTextEntry={!showConfirmPassword}
                 autoCapitalize="none"
               />
@@ -107,7 +109,7 @@ const Register = () => {
             </View>
 
             {/* Register Button */}
-            <TouchableOpacity style={styles.registerButton}>
+            <TouchableOpacity style={styles.registerButton} onPress={handleRegister}>
               <Text style={styles.registerButtonText}>Create Account</Text>
             </TouchableOpacity>
 
