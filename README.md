@@ -1,6 +1,6 @@
 # Login & Signup Pages
 
-A simple and elegant front-end template for login and signup pages built using HTML, CSS, and JavaScript. This project provides a clean UI for authentication forms that can later be connected to a backend server.
+A simple and elegant front-end template for login and signup pages built in React Native. This project provides a clean UI for authentication forms that can later be connected to a backend server.
 
 ---
 
